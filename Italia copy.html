@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Webpage Title -->
+    <title> Travel, Italia</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            width: 600px;
+            margin: 10px auto 0px auto;
+            font-family: 'Nanum Pen Script', cursive;
+        }
+
+        h1,
+        h3 {
+            display: inline;
+        }
+
+        .oneline {
+            display: inline;
+            ;
+        }
+
+
+        .box {
+            border: 3px solid brown;
+            padding: 10px 10px 10px 10px;
+            font-size: larger;
+        }
+
+        .color {
+            color: blue;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+    <form name="form1" method="POST" action="read.php">
+    <div>
+        <img src="https://data2.1freewallpapers.com/download/italy-houses-river.jpg" class="img-thumbnail">
+
+        <br>
+        <br>
+
+        <h1>이탈리아 여행 패캐지 </h1>
+        <h3 class="color"> 5박6일 기준 300만원</h3>
+        <br>
+        <h4> 이탈리아로 떠나요 </h4>
+
+    </div>
+
+    <div class="box">
+        <h1>신청하기</h1>
+        <br>
+        <label for="name" style="width: 50px;">성함</label>
+        <input name="name" type="text" maxlength="500" style="width: 150px;" />
+        <br>
+
+
+        <label for="Phone" style="width: 50px;">전화번호</label>
+        <select name="phone1" style="width: 50px;">
+            <option value="010">010</option>
+            <option value="011">011</option>
+            <option value="017">017</option>
+        </select>
+        - <input name="phone2" type="text" maxlength="43" style="width: 70px;" /> - <input name="phone3" type="text"
+            maxlength="43" style="width: 70px;" />
+        <br>
+
+
+        <label for="address" style="width: 50px;">주소</label>
+        <input name="address" type="text" maxlength="60" style="width: 300px;" />
+        <br>
+
+        <div>
+            <label for="email" style="width: 50px;">이메일</label>
+            <input type="text" name="email1" style="width: 100px;"> @
+            <select name="email2" style="width: 100px;">
+                <option value="" selected>선택하세요!</option>
+                <option value="naver.com">naver.com</option>
+                <option value="google.com">google.com</option>
+            </select>
+
+        </div>
+
+        
+        <label for="people" style="width: 70px;">예약인원수</label>
+        <select name="people" style="width: 50px;">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+
+        <br>
+
+        <input type="submit" value="신청하기" style="width: 100px;"> 
+
+
+    </div>
+    </form>
+</body>
