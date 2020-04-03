@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Webpage Title -->
+    <title> Travel, Italia</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            width: 600px;
+            margin: 10px auto 0px auto;
+            font-family: 'Nanum Pen Script', cursive;
+        }
+
+        h1,
+        h3 {
+            display: inline;
+        }
+
+        .oneline {
+            display: inline;
+            ;
+        }
+
+
+        .box {
+            border: 3px solid brown;
+            padding: 10px 10px 10px 10px;
+            font-size: larger;
+        }
+
+        .color {
+            color: blue;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('#orders-box').html('');
+            listing();
+        });
+
+        function check() {
+            //숫자만입력
+            $(document).on("keyup", "input:text[numberOnly]", function () { $(this).val($(this).val().replace(/[^0-9]/gi, "")); });
+
+            // 1.
+            let a_name = $('#name').val();
+            let a_phone0 = $('#phone0').val();
+            let a_phone1 = $('#phone1').val();
+            let a_phone2 = $('#phone2').val();
+            let a_address = $('#address').val();
+            let a_email1 = $('#email1').val();
+            let a_email2 = $('#emai2').val();
+            let a_people = $('#people').val();
+
+            let a_phone = a_phone0 + ' - ' + a_phone1 + ' - ' + a_phone2
+            let a_email = a_email1 +'@'+a_email2
+
+            // 2. 제목, 저자, 리뷰 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
+            if (a_name == '') {
+                alert("이름을 입력하세요")
+                $("#name").focus()
+            } else if (a_phone0 =='' || a_phone1 == '') {
+                alert("전화번호를 제대로 입력해 주세요")
+                $("#phone0").focus()
+            } else if (a_phone2 == '') {
+                alert("전화번호를 제대로 입력해 주세요")
+                $("#phone2").focus()
+            } else if (a_address == '') {
+                alert("주소를 입력해주세요")
+                $("#address").focus()
+            } else if (a_email1 == '' || a_email2 == '') {
+                alert("이메일 주소를 입력해주세요")
+                $("#email1").focus()
+            } else if (a_people == '') {
+                alert('신청 인원수를 선택해 주세요')
+                $("#people").focus()
+            } else {
+               
+            }
+
+            // 3. POST /reviews 에 저장을 요청합니다.
+            $.ajax({
+                type: 'POST', // 타입을 작성합니다.
+                url: '/signup', // url을 작성합니다.
+                data: {
+                    name_give: a_name,
+                    phone_give: a_phone,
+                    people_give: a_people,
+                    email_give : a_email
+                }, // data를 작성합니다. 
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['msg']);
+                        window.location.reload();
+                        console.log("여기까진 됨")
+                    }
+                }
+            });
+        }
+
+        function listing() {
+            // 1. 리뷰 목록을 서버에 요청하기
+            // 2. 요청 성공 여부 확인하기
+            // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+            $.ajax({
+                type: "GET",
+                url: "/signup",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('데이터를 받아왔습니다.');
+                        // 2. 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                        let signup = response['signup']
+                        for (let i = 0; i < signup.length; i++) {
+                            console.log(signup[i])
+                            make_card(signup[i]['name'], signup[i]['phone'], signup[i]['email'],signup[i]['people'])
+                        }
+                    } else {
+                       
+                    }
+                }
+            })
+        }
+
+        //////////////////////////
+        function make_card(name, phone,email, people) {
+            let temp_html = '<tr>\
+                                <td>'+ name + '</td>\
+                                <td>'+ phone + '</td>\
+                                <td>'+ email + '</td>\
+                                <td>'+ people + '명' + '</td>\
+                            </tr>';
+            $('#orders-box').append(temp_html);
+        }
+    </script>
+
+
+</head>
+
+
+
+<body>
+    <div>
+        <img src="https://data2.1freewallpapers.com/download/italy-houses-river.jpg" class="img-thumbnail">
+
+        <br>
+        <br>
+
+        <h1>이탈리아 여행 패캐지 </h1>
+        <h3 class="color"> 5박6일 기준 300만원</h3>
+        <br>
+        <h4> 이탈리아로 떠나요 </h4>
+
+    </div>
+
+    <div class="box">
+        <h1>신청하기</h1>
+        <br>
+        <label for="Name" style="width: 50px;">성함</label>
+        <input id="name" type="text" maxlength="500" style="width: 150px;" />
+        <br>
+
+        <label for="Phone" style="width: 50px;">전화번호</label>
+        
+        <input id="phone0" name="Phone" type="text" maxlength="3" numberonly="true" style="width: 70px;" />- <input id="phone1" name="Phone" type="text" maxlength="4" numberonly="true" style="width: 70px;" /> - <input
+            id="phone2" name="Phone" type="text" numberonly="true" maxlength="4" style="width: 70px;" />
+        <br>
+
+        <label for="Address" style="width: 50px;">주소</label>
+        <input id="address" name="Address" type="text" maxlength="60" style="width: 300px;" />
+        <br>
+
+        <div>
+            <label for="Name" style="width: 50px;">이메일</label>
+            <input id="email1" type="text" name="email1" style="width: 100px;"> @ <input id="email2" type="text"
+                name="email2" style="width: 100px;">
+
+
+
+        </div>
+
+
+        <label for="people" style="width: 70px;">예약인원수</label>
+        <select id="people" name="people" style="width: 150px;">
+            <option value="" selected>선택하세요!</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+
+        <br>
+
+        <button onClick=check() style="width: 100px;"> 신청하기 </button>
+
+    </div>
+
+    <div class="orders">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">성함</th>
+                    <th scope="col">전화번호</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">예약인원수</th>
+                </tr>
+            </thead>
+            <tbody id="orders-box">
+                <tr>
+                    <td>최유진</td>
+                    <td>010-2767-0622</td>
+                    <td>elle961130@naver.com</td>
+                    <td>3 </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
